@@ -28,7 +28,7 @@ jobs:
             gcloud auth configure-docker asia-south1-docker.pkg.dev
       - name: Build Docker Image
         run: |
-          docker build -t "${{ env.AR_URL }}/${{ env.IMAGE_NAME }}:${{ github.sha }}" ./docker
+          docker build -t "${{ env.AR_URL }}/${{ env.IMAGE_NAME }}:${{ github.sha }}" .
       - name: Push Docker Image
         run: |
           docker push "${{ env.AR_URL }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"   
