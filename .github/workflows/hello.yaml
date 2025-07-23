@@ -26,7 +26,8 @@ jobs:
           docker build -t asia-south-1-docker.pkg.dev/primeval-splice-466215-p6/test-repo/hello_python:latest ./src
       - name: Push Docker Image
         run: |
-          docker push asia-south-1-docker.pkg.dev/primeval-splice-466215-p6/test-repo/
+          docker push asia-south-1-docker.pkg.dev/primeval-splice-466215-p6/test-repo/hello_python:latest   
+          
     #   - name: Print Image URL
     #     run: |
     #       echo "Print IMage URL"
