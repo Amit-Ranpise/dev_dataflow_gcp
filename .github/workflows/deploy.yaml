@@ -8,8 +8,6 @@ on:
 jobs:
   cloud-run-deploy:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_EVENT_INPUT_IMAGE_URL: ${{ github.event.inputs.image_url }}
     steps:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
@@ -22,9 +20,9 @@ jobs:
 
       - name: Deploy to Cloud Run
         run:
-          IMAGE_URL = $GITHUB_EVENT_INPUT_IMAGE_URL
+          #IMAGE_URL = $GITHUB_EVENT_INPUT_IMAGE_URL
           gcloud run deploy sample-cloudrun \
-            -- image "$IMAGE_URL" \
+            -- image "${{ github.event.inputs.image_url }}" \
             -- region "asia-south1" \
             -- platform managed \
             -- allow-unauthenticated
