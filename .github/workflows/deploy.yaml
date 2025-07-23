@@ -1,30 +1,30 @@
-name: Deploy image to Cloud Run
-on:
-  workflow_dispatch:
-    inputs:
-      image_url:
-        description: 'Docker Imagr ULR deploy'
-        required: true
-jobs:
-  cloud-run-deploy:
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_EVENT_INPUT_IMAGE_URL: ${{ github.event.inputs.image_url }}
-    steps:
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v1
-        id: 'auth'
-        with:
-          project_id: ${{ secrets.PROJECT_ID }}
-          credentials_json: ${{ secrets.SERVICE_ACCOUNT_KEY }}
-      - name: Set up gcloud CLI
-        uses: google-github-actions/setup-gcloud@v2
+# name: Deploy image to Cloud Run
+# on:
+#   workflow_dispatch:
+#     inputs:
+#       image_url:
+#         description: 'Docker Imagr ULR deploy'
+#         required: true
+# jobs:
+#   cloud-run-deploy:
+#     runs-on: ubuntu-latest
+#     env:
+#       GITHUB_EVENT_INPUT_IMAGE_URL: ${{ github.event.inputs.image_url }}
+#     steps:
+#       - name: Authenticate to Google Cloud
+#         uses: google-github-actions/auth@v1
+#         id: 'auth'
+#         with:
+#           project_id: ${{ secrets.PROJECT_ID }}
+#           credentials_json: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+#       - name: Set up gcloud CLI
+#         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Deploy to Cloud Run
-        run:
-          IMAGE_URL = $GITHUB_EVENT_INPUT_IMAGE_URL
-          gcloud run deploy sample-cloudrun \
-            -- image "$IMAGE_URL" \
-            -- region "asia-south1" \
-            -- platform managed \
-            -- allow-unauthenticated
+#       - name: Deploy to Cloud Run
+#         run:
+#           IMAGE_URL = $GITHUB_EVENT_INPUT_IMAGE_URL
+#           gcloud run deploy sample-cloudrun \
+#             -- image "$IMAGE_URL" \
+#             -- region "asia-south1" \
+#             -- platform managed \
+#             -- allow-unauthenticated
