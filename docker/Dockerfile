@@ -6,8 +6,8 @@ FROM gcr.io/dataflow-templates-base/python3-template-launcher-base
 WORKDIR /template
 
 # copy files
-COPY .src/app.py .
-#COPY .src/requirements.txt .
+COPY src/app.py .
+COPY src/requirements.txt .
 
 
 # set environment variables
