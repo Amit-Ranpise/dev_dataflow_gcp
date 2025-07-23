@@ -151,8 +151,8 @@ jobs:
       - name: Build Dataflow Template JSON Configuration File
         run: |
           gcloud dataflow flex-template build \
-          ${{ env.TEMPLATE_GCS_PATH }} \
-          --sdk-language ${{ env.SDK_LANGUAGE }} \
-          --image ${{ env.GCR_IMAGE_PATH }}
+          ${{ github.event.inputs.TEMPLATE_GCS_PATH }} \
+          --sdk-language ${{ github.event.inputs.SDK_LANGUAGE }} \
+          --image ${{ github.event.inputs.GCR_IMAGE_PATH }}
 
   
