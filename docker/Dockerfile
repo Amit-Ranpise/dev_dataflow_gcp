@@ -17,7 +17,7 @@ ENV FLEX_TEMPLATE_PYTHON_PY_FILE="/template/app.py"
 # Install apache-beam and other dependencies to launch the pipeline
 RUN apt-get update
 RUN pip install --no-cache-dir --upgrade pip
-RUN pip install -U -r /template/requirements.txt
+RUN pip install -U -r requirements.txt
 
 # Since we already downloaded all the dependencies, there's no need to rebuild everything.
 ENV PIP_NO_DEPS=True
