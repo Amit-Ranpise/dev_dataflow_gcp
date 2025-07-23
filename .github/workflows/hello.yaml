@@ -36,8 +36,14 @@ jobs:
       - name: Set Output
         id: 'set_output'
         run: |
-          echo "Print IMage URL"
-          echo "image_path=${{ env.AR_URL }}/${{ env.IMAGE_NAME }}:${{ github.sha }}" >>"$GITHUB_OUTPUT"
+          echo "Print Image URL"
+          echo "image_path=${{ env.AR_URL }}/${{ env.IMAGE_NAME }}:${{ github.sha }}" 
+          echo "image_url=$image_path"
+          echo "image_url=$image_path" >>"$GITHUB_OUTPUT"
+      - name: Show image url in next steps
+        run: |
+          echo "Final IMage"
+          echo "${{ steps.set_output.outputs.image_url }}"
 
         
             
