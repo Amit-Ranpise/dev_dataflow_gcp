@@ -1,4 +1,4 @@
-name: Sample file for testing
+name: Build and push Docker Image to Artifact Registry  
 on:
   push:
     branches:
@@ -23,14 +23,14 @@ jobs:
             gcloud auth configure-docker asia-south-1-docker.pkg.dev
       - name: Build Docker Image
         run: |
-          docker build -t asia-south-1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/test-repo/hello_python:latest ./src
+          docker build -t asia-south-1-docker.pkg.dev/primeval-splice-466215-p6/test-repo/hello_python:latest ./src
       - name: Push Docker Image
         run: |
-          docker push asia-south-1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/test-repo/hello_python:latest
+          docker push asia-south-1-docker.pkg.dev/primeval-splice-466215-p6/test-repo/hello_python:latest
       - name: Print Image URL
         run: |
           echo "Print IMage URL"
-          echo "asia-south-1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/test-repo/hello_python:latest"
+          echo "asia-south-1-docker.pkg.dev/primeval-splice-466215-p6/test-repo/hello_python:latest"
 
         
             
