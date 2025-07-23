@@ -3,6 +3,11 @@ on:
   push:
     branches:
         - 'main' 
+env:
+  IMAGE_NAME: "hello_python"
+  AR_REPO_LOCATION: "asia-south1"
+  AR_URL: "asia-south1-docker.pkg.dev/primeval-splice-466215-p6/test-repo"
+  
 jobs:
   hello-job:
     runs-on: ubuntu-latest
@@ -23,15 +28,16 @@ jobs:
             gcloud auth configure-docker asia-south1-docker.pkg.dev
       - name: Build Docker Image
         run: |
-          docker build -t asia-south1-docker.pkg.dev/primeval-splice-466215-p6/test-repo/hello_python:latest ./src
+          docker build -t "${{ env.AR_URL }}/${{ env.IMAGE_NAME }}:${{ github.sha }}" ./src
       - name: Push Docker Image
         run: |
-          docker push asia-south1-docker.pkg.dev/primeval-splice-466215-p6/test-repo/hello_python:latest   
+          docker push "${{ env.AR_URL }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"   
           
-    #   - name: Print Image URL
-    #     run: |
-    #       echo "Print IMage URL"
-    #       echo "asia-south-1-docker.pkg.dev/primeval-splice-466215-p6/test-repo/hello_python:latest"
+      - name: Set Output
+        id: 'set_output'
+        run: |
+          echo "Print IMage URL"
+          echo "image_path=${{ env.AR_URL }}/${{ env.IMAGE_NAME }}:${{ github.sha }}" >>"$GITHUB_OUTPUT"
 
         
             
