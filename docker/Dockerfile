@@ -7,7 +7,7 @@ WORKDIR /template
 
 # copy files
 COPY .src/app.py .
-COPY .src/requirements.txt .
+#COPY .src/requirements.txt .
 
 
 # set environment variables
