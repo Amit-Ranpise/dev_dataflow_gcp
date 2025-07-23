@@ -1,17 +1,17 @@
 # 
 FROM gcr.io/dataflow-templates-base/python3-template-launcher-base
 
-ARG WORKDIR=/dataflow/template
-RUN mkdir -p ${WORKDIR}
-WORKDIR ${WORKDIR}
+#ARG WORKDIR=/dataflow/template
+#RUN mkdir -p ${WORKDIR}
+WORKDIR /template
 
 # copy files
-COPY ./requirements.txt ${WORKDIR}/
-COPY ./app.py ${WORKDIR}/
+COPY ./requirements.txt .
+COPY ./app.py .
 
 # set environment variables
-ENV FLEX_TEMPLATE_PYTHON_REQUIREMENTS_FILE="${WORKDIR}/requirements.txt"
-ENV FLEX_TEMPLATE_PYTHON_PY_FILE="${WORKDIR}/app.py"
+ENV FLEX_TEMPLATE_PYTHON_REQUIREMENTS_FILE="/template/requirements.txt"
+ENV FLEX_TEMPLATE_PYTHON_PY_FILE="/template/app.py"
 
 # Install apache-beam and other dependencies to launch the pipeline
 RUN apt-get update
