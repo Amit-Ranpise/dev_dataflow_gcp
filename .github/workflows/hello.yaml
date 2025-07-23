@@ -18,8 +18,19 @@ jobs:
 
       - name: Set up gcloud CLI
         uses: google-github-actions/setup-gcloud@v2
-      - name: Print Hello
+      - name: Set up Docker to use gcloud 
         run: |
-            gcloud config set project ${{ secrets.PROJECT_ID }}
-            echo "Hello From GCP"   
+            gcloud auth configure-docker asia-south-1-docker.pkg.dev
+      - name: Build Docker Image
+        run: |
+          docker build -t asia-south-1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/test-repo/hello_python:latest ./src
+      - name: Push Docker Image
+        run: |
+          docker push asia-south-1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/test-repo/hello_python:latest
+      - name: Print Image URL
+        run: |
+          echo "Print IMage URL"
+          echo "asia-south-1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/test-repo/hello_python:latest"
+
+        
             
