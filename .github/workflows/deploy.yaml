@@ -73,9 +73,9 @@ jobs:
     #   run:
     #     working-directory: 01-flex-template
 
-    permissions:
-      contents: read
-      id-token: write
+    # permissions:
+    #   contents: read
+    #   id-token: write
 
     steps:
       - name: Checkout
