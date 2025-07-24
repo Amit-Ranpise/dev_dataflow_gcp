@@ -55,82 +55,21 @@
 #           #IMAGE_URL = $GITHUB_EVENT_INPUT_IMAGE_URL
 #           gcloud run deploy sample-cloudrun --image ${{ github.event.inputs.image_url }} --region asia-south1 --allow-unauthenticated
 # >>>>>>> 1fea9aa0d069bb3c66c97bdc0214bb1dc78c1ba4
-name: Build and Deploy Dataflow Flex Template
-on: workflow_dispatch
-env:
-  TEMPLATE_GCS_PATH: gs://dbapptio-dataflow-flex-gcs-dev/templates/demo_json_template.json
-  SDK_LANGUAGE: PYTHON
-  GCR_IMAGE_PATH: us-central1-docker.pkg.dev/primeval-splice-466215-p6/dev-registry/python_flex:7dbe457b45401f64116623be317c868988f4da73
-  JOB_NAME: fpl-api-template-test-v6
-  STAGING_LOCATION: gs://dbapptio-dataflow-flex-gcs-dev/test/staging
-  TEMP_LOCATION: gs://dbapptio-dataflow-flex-gcs-dev/test/temp
-  REGION: us-central1
-  SA_EMAIL: dev-sa@primeval-splice-466215-p6.iam.gserviceaccount.com
-jobs:
-  deploy-template:
-    name: Dataflow Template
-    runs-on: ubuntu-latest
-    # defaults:
-    #   run:
-    #     working-directory: 01-flex-template
-
-    # permissions:
-    #   contents: read
-    #   id-token: write
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      # authenticate with gcloud
-      - name: Authenticate to Google Cloud
-        id: auth
-        uses: google-github-actions/auth@v1
-        with:
-          token_format: access_token
-          project_id: ${{ secrets.PROJECT_ID }}
-          credentials_json: ${{ secrets.SERVICE_ACCOUNT_KEY }}
-          #service_account: ${{ secrets.SA_EMAIL }}
-
-      # Set up Cloud SDK
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
-
-      # Build the JSON Configuration file for the Dataflow Flex Template
-      - name: Build Dataflow Template JSON Configuration File
-        run: |
-          gcloud dataflow flex-template build \
-          ${{ env.TEMPLATE_GCS_PATH }} \
-          --sdk-language ${{ env.SDK_LANGUAGE }} \
-          --image ${{ env.GCR_IMAGE_PATH }}
-
-      - name: Build and Deploy Dataflow Job
-        run: |
-          gcloud dataflow flex-template run ${{ env.JOB_NAME }} \
-          --template-file-gcs-location ${{ env.TEMPLATE_GCS_PATH }} \
-          --region ${{ env.REGION }} \
-          --staging-location ${{ env.STAGING_LOCATION }} \
-          --temp-location ${{ env.TEMP_LOCATION }} \
-          --service-account-email ${{ env.SA_EMAIL }} \
-          --parameters output="gs://dbapptio-dataflow-flex-gcs-dev/output-dir/output-$(date +%Y%m%d-%H%M%S)"
-
-
-
-
+#=================
+# SUccessfully run and build  dataflow job using python
+#===================
 
 # name: Build and Deploy Dataflow Flex Template
-# on:
-#   workflow_dispatch:
-#     inputs:
-#       TEMPLATE_GCS_PATH:
-#         description: 'Template gcs path'
-#         required: true
-#       SDK_LANGUAGE:
-#         description: 'sdk language'
-#         required: true
-#       GCR_IMAGE_PATH:
-#         description: 'image path'
-#         required: true
+# on: workflow_dispatch
+# env:
+#   TEMPLATE_GCS_PATH: gs://dbapptio-dataflow-flex-gcs-dev/templates/demo_json_template.json
+#   SDK_LANGUAGE: PYTHON
+#   GCR_IMAGE_PATH: us-central1-docker.pkg.dev/primeval-splice-466215-p6/dev-registry/python_flex:7dbe457b45401f64116623be317c868988f4da73
+#   JOB_NAME: fpl-api-template-test-v6
+#   STAGING_LOCATION: gs://dbapptio-dataflow-flex-gcs-dev/test/staging
+#   TEMP_LOCATION: gs://dbapptio-dataflow-flex-gcs-dev/test/temp
+#   REGION: us-central1
+#   SA_EMAIL: dev-sa@primeval-splice-466215-p6.iam.gserviceaccount.com
 # jobs:
 #   deploy-template:
 #     name: Dataflow Template
@@ -165,8 +104,73 @@ jobs:
 #       - name: Build Dataflow Template JSON Configuration File
 #         run: |
 #           gcloud dataflow flex-template build \
-#           ${{ github.event.inputs.TEMPLATE_GCS_PATH }} \
-#           --sdk-language ${{ github.event.inputs.SDK_LANGUAGE }} \
-#           --image ${{ github.event.inputs.GCR_IMAGE_PATH }}
+#           ${{ env.TEMPLATE_GCS_PATH }} \
+#           --sdk-language ${{ env.SDK_LANGUAGE }} \
+#           --image ${{ env.GCR_IMAGE_PATH }}
+
+#       - name: Build and Deploy Dataflow Job
+#         run: |
+#           gcloud dataflow flex-template run ${{ env.JOB_NAME }} \
+#           --template-file-gcs-location ${{ env.TEMPLATE_GCS_PATH }} \
+#           --region ${{ env.REGION }} \
+#           --staging-location ${{ env.STAGING_LOCATION }} \
+#           --temp-location ${{ env.TEMP_LOCATION }} \
+#           --service-account-email ${{ env.SA_EMAIL }} \
+#           --parameters output="gs://dbapptio-dataflow-flex-gcs-dev/output-dir/output-$(date +%Y%m%d-%H%M%S)"
+
+
+
+
+
+name: Build and Deploy Dataflow Flex Template
+on:
+  workflow_dispatch:
+    inputs:
+      TEMPLATE_GCS_PATH:
+        description: 'Template gcs path'
+        required: true
+      SDK_LANGUAGE:
+        description: 'sdk language'
+        required: true
+      GCR_IMAGE_PATH:
+        description: 'image path'
+        required: true
+jobs:
+  deploy-template:
+    name: Dataflow Template
+    runs-on: ubuntu-latest
+    # defaults:
+    #   run:
+    #     working-directory: 01-flex-template
+
+    # permissions:
+    #   contents: read
+    #   id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # authenticate with gcloud
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          token_format: access_token
+          project_id: ${{ secrets.PROJECT_ID }}
+          credentials_json: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          #service_account: ${{ secrets.SA_EMAIL }}
+
+      # Set up Cloud SDK
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      # Build the JSON Configuration file for the Dataflow Flex Template
+      - name: Build Dataflow Template JSON Configuration File
+        run: |
+          gcloud dataflow flex-template build \
+          ${{ github.event.inputs.TEMPLATE_GCS_PATH }} \
+          --sdk-language ${{ github.event.inputs.SDK_LANGUAGE }} \
+          --image ${{ github.event.inputs.GCR_IMAGE_PATH }}
 
   

@@ -6,7 +6,7 @@ on:
         description: 'gcs name'
         required: true
       REGION:
-        description: 'gcs name'
+        description: 'Region name'
         required: true   
       TEMPLATE_GCS_PATH:
         description: 'Template gcs path'
@@ -21,10 +21,10 @@ on:
         description: 'name of dataflow job'
         required: true
       STAGING_LOCATION:
-        description: 'Location of staging'
+        description: 'stagin location'
         required: true
       TEMP_LOCATION:
-        description: 'Location of TEMP'
+        description: 'temp location'
         required: true
 
 jobs:
@@ -49,8 +49,8 @@ jobs:
       - name: Build and Deploy Dataflow Job
         run: |
           gcloud dataflow flex-template run ${{ github.event.inputs.JOB_NAME }}-${{ github.sha }}-${{ github.run_id }} \
-            --template-file-gcs-location ${{ github.event.inputs.TEMPLATE_GCS_PATH }} \
-            --region ${{ github.event.inputs.REGION }} \
-            --staging-location ${{ github.event.inputs.STAGING_LOCATION }} \
-            --temp-location ${{ github.event.inputs.TEMP_LOCATION }} \
-            --parameters output=${{ github.event.inputs.GCS_BUCKET_NAME }}/output-
+          --template-file-gcs-location ${{ github.event.inputs.TEMPLATE_GCS_PATH }} \
+          --region ${{ github.event.inputs.REGION }} \
+          --staging-location ${{ github.event.inputs.STAGING_LOCATION }} \
+          --temp-location ${{ github.event.inputs.TEMP_LOCATION }} \
+          --parameters output=${{ github.event.inputs.GCS_BUCKET_NAME }}/output-dir/output-$(date +%Y%m%d-%H%M%S)
