@@ -53,4 +53,4 @@ jobs:
             --region ${{ github.event.inputs.REGION }} \
             --staging-location ${{ github.event.inputs.STAGING_LOCATION }} \
             --temp-location ${{ github.event.inputs.TEMP_LOCATION }} \
-            --parameters output=${{ github.event.inputs.GCS_BUCKET_NAME }}-output-
+            --parameters output=${{ github.event.inputs.GCS_BUCKET_NAME }}/output-
