@@ -1,0 +1,56 @@
+name: Deploy flex template job on dataflow
+on:
+  workflow_dispatch:
+    inputs:
+      GCS_BUCKET_NAME:
+        description: 'gcs name'
+        required: true
+      REGION:
+        description: 'gcs name'
+        required: true   
+      TEMPLATE_GCS_PATH:
+        description: 'Template gcs path'
+        required: true
+      SDK_LANGUAGE:
+        description: 'sdk language'
+        required: true
+      GCR_IMAGE_PATH:
+        description: 'image path'
+        required: true
+      JOB_NAME:
+        description: 'name of dataflow job'
+        required: true
+      STAGING_LOCATION:
+        description: 'Location of staging'
+        required: true
+      TEMP_LOCATION:
+        description: 'Location of TEMP'
+        required: true
+
+jobs:
+  deploy-template:
+    name: Dataflow Template
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # authenticate with gcloud
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          token_format: access_token
+          project_id: ${{ secrets.PROJECT_ID }}
+          credentials_json: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          #service_account: ${{ secrets.SA_EMAIL }}
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+      - name: Build and Deploy Dataflow Job
+        run: |
+          gcloud dataflow flex-template run ${{ github.event.inputs.JOB_NAME }}-${{ github.sha }}-${{ github.run_id }} \
+            --template-file-gcs-location ${{ github.event.inputs.TEMPLATE_GCS_PATH }} \
+            --region ${{ github.event.inputs.REGION }} \
+            --staging-location ${{ github.event.inputs.STAGING_LOCATION }} \
+            --temp-location ${{ github.event.inputs.TEMP_LOCATION }} \
+            --parameters output=${{ github.event.inputs.GCS_BUCKET_NAME }}-output-
