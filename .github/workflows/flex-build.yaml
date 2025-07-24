@@ -106,7 +106,7 @@ jobs:
 
       - name: Build and Deploy Dataflow Job
         run: |
-          cloud dataflow flex-template run ${{ env.JOB_NAME }} \
+          gcloud dataflow flex-template run ${{ env.JOB_NAME }} \
           --template-file-gcs-location ${{ env.TEMPLATE_GCS_PATH }} \
           --region ${{ env.REGION }} \
           --staging-location ${{ env.STAGING_LOCATION }} \
