@@ -1,12 +1,12 @@
 name: Build and push Docker Image to Artifact Registry  
-on: workflow_dispatch
-  # push:
-  #   branches:
-  #       - 'main' 
+on:
+  push:
+    branches:
+        - 'main' 
 env:
   IMAGE_NAME: "python_flex"
-  AR_REPO_LOCATION: "asia-south1"
-  AR_URL: "asia-south1-docker.pkg.dev/primeval-splice-466215-p6/test-repo"
+  AR_REPO_LOCATION: "us-central1"
+  AR_URL: "us-central1-docker.pkg.dev/primeval-splice-466215-p6/test-repo"
   
 jobs:
   hello-job:
