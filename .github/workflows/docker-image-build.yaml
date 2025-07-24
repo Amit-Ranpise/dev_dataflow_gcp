@@ -1,8 +1,8 @@
 name: Build and push Docker Image to Artifact Registry  
-on:
-  push:
-    branches:
-        - 'main' 
+on: workflow_dispatch
+  # push:
+  #   branches:
+  #       - 'main' 
 env:
   IMAGE_NAME: "python_flex"
   AR_REPO_LOCATION: "asia-south1"

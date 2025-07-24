@@ -61,7 +61,7 @@ env:
   TEMPLATE_GCS_PATH: gs://dbapptio-dev-dataflow-job-bucket/templates/api_json_template.json
   SDK_LANGUAGE: PYTHON
   GCR_IMAGE_PATH: asia-south1-docker.pkg.dev/primeval-splice-466215-p6//test-repo/python_flex:adb7e30fd33f065cd2296921cd4148d732de3fc2
-  JOB_NAME: fpl-api-template-test-v4
+  JOB_NAME: fpl-api-template-test-v5
   STAGING_LOCATION: gs://dbapptio-dev-dataflow-job-bucket/staging
   TEMP_LOCATION: gs://dbapptio-dev-dataflow-job-bucket/temp
   REGION: asia-south1
