@@ -6,7 +6,7 @@ on:
 env:
   IMAGE_NAME: "python_flex"
   AR_REPO_LOCATION: "us-central1"
-  AR_URL: "us-central1-docker.pkg.dev/primeval-splice-466215-p6/test-repo"
+  AR_URL: "us-central1-docker.pkg.dev/primeval-splice-466215-p6/dev-registry"
   
 jobs:
   hello-job:
