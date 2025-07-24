@@ -58,13 +58,13 @@
 name: Build and Deploy Dataflow Flex Template
 on: workflow_dispatch
 env:
-  TEMPLATE_GCS_PATH: gs://dbapptio-dev-dataflow-job-bucket/templates/api_json_template.json
+  TEMPLATE_GCS_PATH: gs://dbapptio-dataflow-flex-gcs-dev/templates/api_json_template.json
   SDK_LANGUAGE: PYTHON
-  GCR_IMAGE_PATH: asia-south1-docker.pkg.dev/primeval-splice-466215-p6//test-repo/python_flex:adb7e30fd33f065cd2296921cd4148d732de3fc2
+  GCR_IMAGE_PATH: us-central1-docker.pkg.dev/primeval-splice-466215-p6/dev-registry/python_flex:7dbe457b45401f64116623be317c868988f4da73
   JOB_NAME: fpl-api-template-test-v5
-  STAGING_LOCATION: gs://dbapptio-dev-dataflow-job-bucket/staging
-  TEMP_LOCATION: gs://dbapptio-dev-dataflow-job-bucket/temp
-  REGION: asia-south1
+  STAGING_LOCATION: gs://dbapptio-dataflow-flex-gcs-dev/staging
+  TEMP_LOCATION: gs://dbapptio-dataflow-flex-gcs-dev/temp
+  REGION: us-central1
   SA_EMAIL: dev-sa@primeval-splice-466215-p6.iam.gserviceaccount.com
 jobs:
   deploy-template:
@@ -112,7 +112,7 @@ jobs:
           --staging-location ${{ env.STAGING_LOCATION }} \
           --temp-location ${{ env.TEMP_LOCATION }} \
           --service-account-email ${{ env.SA_EMAIL }} \
-          --parameters output="gs://dbapptio-dev-dataflow-job-bucket/output-"
+          --parameters output="gs://bapptio-dataflow-flex-gcs-dev/output-"
 
 
 
